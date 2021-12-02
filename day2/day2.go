@@ -7,15 +7,15 @@ import (
 
 func Task1(instructions []string) int {
 	depth, horizontal := calculateDepthAndHorizontalDelta(instructions)
-	return depth * horizontal
+	return calculateMultiplierOfDepthAndHorizontal(depth, horizontal)
 }
 
 func Task2(instructions []string) int {
 	depth, horizontal := calculateDepthAndHorizontalWithAim(instructions)
-	return depth * horizontal
+	return calculateMultiplierOfDepthAndHorizontal(depth, horizontal)
 }
 
-func calculateMultiplierOfDepthAndHoriztonal(depth int, horizontal int) int {
+func calculateMultiplierOfDepthAndHorizontal(depth int, horizontal int) int {
 	return depth * horizontal
 }
 
