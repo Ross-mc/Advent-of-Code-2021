@@ -7,6 +7,7 @@ import (
 	"github.com/ross-mc/Advent-of-Code-2021/day2"
 	"github.com/ross-mc/Advent-of-Code-2021/day3"
 	"github.com/ross-mc/Advent-of-Code-2021/day4"
+	"github.com/ross-mc/Advent-of-Code-2021/day5"
 	"github.com/ross-mc/Advent-of-Code-2021/utils"
 )
 
@@ -14,7 +15,8 @@ func main() {
 	// day1Tasks()
 	// day2Tasks()
 	// day3Tasks()
-	day4Tasks()
+	// day4Tasks()
+	day5Tasks()
 }
 
 func day1Tasks() {
@@ -47,4 +49,12 @@ func day4Tasks() {
 	fmt.Printf("Day 4 Task 1: %v\n", d4t1)
 	d4t2 := day4.Task2(day4Input)
 	fmt.Printf("Day 4 Task 2: %v\n", d4t2)
+}
+
+func day5Tasks() {
+	day5Input := utils.ReadFileIntoStringSlice("./day5/input.txt")
+	d5t1 := day5.Task1(day5Input)
+	fmt.Printf("Day 5 Task 1: %v\n", d5t1)
+	d5t2 := day5.Task2(day5Input)
+	fmt.Printf("Day 5 Task 1: %v\n", d5t2)
 }
