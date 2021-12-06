@@ -17,7 +17,7 @@ func parseInput(input []string) School {
 	}
 	return school
 }
-func pop(slc *School) (int, School) {
+func shift(slc *School) (int, School) {
 	copy := *slc
 	first := copy[0]
 	return first, copy[1:]
@@ -29,7 +29,7 @@ func simulateFishGrowth(initialSchool *School, iterations int) School {
 		school[num] += 1
 	}
 	for i := 0; i < iterations; i++ {
-		prevValue, newSlc := pop(&school)
+		prevValue, newSlc := shift(&school)
 		school = newSlc
 		school[6] += prevValue
 		school = append(school, prevValue)
