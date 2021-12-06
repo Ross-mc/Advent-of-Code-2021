@@ -7,6 +7,8 @@ import (
 
 type LanternFishSchool []int
 
+type CleverSchool map[int]int
+
 func parseInput(input []string) LanternFishSchool {
 	inputStr := input[0]
 	csv := strings.Split(inputStr, ",")
@@ -37,8 +39,8 @@ func runItBack80Times(school *LanternFishSchool) {
 	}
 }
 
-func runItBack256Times(initialSchool *LanternFishSchool) int {
-	var cleverSchool = map[int]int{0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0}
+func runItBack256Times(initialSchool *LanternFishSchool) CleverSchool {
+	var cleverSchool = CleverSchool{0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0}
 	for _, num := range *initialSchool {
 		cleverSchool[num] += 1
 	}
@@ -54,6 +56,10 @@ func runItBack256Times(initialSchool *LanternFishSchool) int {
 		cleverSchool[7] = cleverSchool[8]
 		cleverSchool[8] = holdZeroCount
 	}
+	return cleverSchool
+}
+
+func countTheFishIntelligently(cleverSchool CleverSchool) int {
 	count := 0
 	for _, fish := range cleverSchool {
 		count += fish
@@ -73,6 +79,6 @@ func Task1(input []string) int {
 
 func Task2(input []string) int {
 	school := parseInput(input)
-	return runItBack256Times(&school)
-
+	finalSchool := runItBack256Times(&school)
+	return countTheFishIntelligently(finalSchool)
 }
