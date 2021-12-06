@@ -5,14 +5,12 @@ import (
 	"strings"
 )
 
-type LanternFishSchool []int
-
 type School []int
 
-func parseInput(input []string) LanternFishSchool {
+func parseInput(input []string) School {
 	inputStr := input[0]
 	csv := strings.Split(inputStr, ",")
-	school := LanternFishSchool{}
+	school := School{}
 	for _, strInt := range csv {
 		parsed, _ := strconv.Atoi(strInt)
 		school = append(school, parsed)
@@ -25,7 +23,7 @@ func pop(slc *School) (int, School) {
 	return first, copy[1:]
 }
 
-func simulateFishGrowth(initialSchool *LanternFishSchool, iterations int) School {
+func simulateFishGrowth(initialSchool *School, iterations int) School {
 	var school = School{0, 0, 0, 0, 0, 0, 0, 0, 0}
 	for _, num := range *initialSchool {
 		school[num] += 1
