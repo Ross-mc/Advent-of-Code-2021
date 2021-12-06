@@ -7,7 +7,7 @@ import (
 
 type LanternFishSchool []int
 
-type CleverSchool map[int]int
+type School []int
 
 func parseInput(input []string) LanternFishSchool {
 	inputStr := input[0]
@@ -19,66 +19,42 @@ func parseInput(input []string) LanternFishSchool {
 	}
 	return school
 }
-
-func itsANewDawnItsaNewDayAndImFeelingLanternFish(school *LanternFishSchool) {
-	freshFish := LanternFishSchool{}
-	for i := 0; i < len(*school); i++ {
-		if (*school)[i] == 0 {
-			(*school)[i] = 6
-			freshFish = append(freshFish, 8)
-		} else {
-			(*school)[i]--
-		}
-	}
-	(*school) = append((*school), freshFish...)
+func pop(slc *School) (int, School) {
+	copy := *slc
+	first := copy[0]
+	return first, copy[1:]
 }
 
-func runItBack80Times(school *LanternFishSchool) {
-	for i := 0; i < 80; i++ {
-		itsANewDawnItsaNewDayAndImFeelingLanternFish(school)
-	}
-}
-
-func runItBack256Times(initialSchool *LanternFishSchool) CleverSchool {
-	var cleverSchool = CleverSchool{0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 0}
+func simulateFishGrowth(initialSchool *LanternFishSchool, iterations int) School {
+	var school = School{0, 0, 0, 0, 0, 0, 0, 0, 0}
 	for _, num := range *initialSchool {
-		cleverSchool[num] += 1
+		school[num] += 1
 	}
-	for i := 0; i < 256; i++ {
-		holdZeroCount := cleverSchool[0]
-		cleverSchool[0] = cleverSchool[1]
-		cleverSchool[1] = cleverSchool[2]
-		cleverSchool[2] = cleverSchool[3]
-		cleverSchool[3] = cleverSchool[4]
-		cleverSchool[4] = cleverSchool[5]
-		cleverSchool[5] = cleverSchool[6]
-		cleverSchool[6] = holdZeroCount + cleverSchool[7]
-		cleverSchool[7] = cleverSchool[8]
-		cleverSchool[8] = holdZeroCount
+	for i := 0; i < iterations; i++ {
+		prevValue, newSlc := pop(&school)
+		school = newSlc
+		school[6] += prevValue
+		school = append(school, prevValue)
 	}
-	return cleverSchool
+	return school
 }
 
-func countTheFishIntelligently(cleverSchool CleverSchool) int {
+func countTheFish(School School) int {
 	count := 0
-	for _, fish := range cleverSchool {
+	for _, fish := range School {
 		count += fish
 	}
 	return count
 }
 
-func countTheFish(school LanternFishSchool) int {
-	return len(school)
-}
-
 func Task1(input []string) int {
-	school := parseInput(input)
-	runItBack80Times(&school)
+	initial := parseInput(input)
+	school := simulateFishGrowth(&initial, 80)
 	return countTheFish(school)
 }
 
 func Task2(input []string) int {
-	school := parseInput(input)
-	finalSchool := runItBack256Times(&school)
-	return countTheFishIntelligently(finalSchool)
+	initial := parseInput(input)
+	school := simulateFishGrowth(&initial, 256)
+	return countTheFish(school)
 }
