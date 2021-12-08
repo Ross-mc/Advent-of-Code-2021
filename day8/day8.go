@@ -171,9 +171,9 @@ func decodePatterns(pattern string) Patterns {
 	display := Display{}
 	patterns := Patterns{0: "", 1: "", 2: "", 3: "", 4: "", 5: "", 6: "", 7: "", 8: "", 9: ""}
 	segments := strings.Split(pattern, " ")
-
 	twoThreeFive := []string{}
 	zeroSixNine := []string{}
+	//1,7,4,8 are unique, 235 are grouped, 069 are grouped
 	for _, segment := range segments {
 		switch len(segment) {
 		case 2:
