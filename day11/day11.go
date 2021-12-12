@@ -116,19 +116,12 @@ func updateLeft(rowIdx int, colIdx int, octopuses *Octopuses) {
 
 func updateAdjacentOctopuses(rowIdx int, colIdx int, octopuses *Octopuses) {
 	updateUp(rowIdx, colIdx, octopuses)
-
 	updateUpAndRight(rowIdx, colIdx, octopuses)
-
 	updateUpAndLeft(rowIdx, colIdx, octopuses)
-
 	updateLeft(rowIdx, colIdx, octopuses)
-
 	updateRight(rowIdx, colIdx, octopuses)
-
 	updateDown(rowIdx, colIdx, octopuses)
-
 	updateDownAndLeft(rowIdx, colIdx, octopuses)
-
 	updateDownAndRight(rowIdx, colIdx, octopuses)
 }
 
@@ -146,14 +139,11 @@ func processStep(octopuses *Octopuses) {
 func countFlashes(octopuses *Octopuses) (flashes int) {
 	for {
 		flashes += flash(octopuses)
-		if checkIfAnyNeedToFlash(octopuses) {
-
-			continue
-		} else {
-
-			return
+		if !checkIfAnyNeedToFlash(octopuses) {
+			break
 		}
 	}
+	return
 }
 
 func reset(octopuses *Octopuses) {
