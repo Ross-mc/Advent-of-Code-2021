@@ -19,16 +19,16 @@ import (
 )
 
 func main() {
-	// day1Tasks()
-	// day2Tasks()
-	// day3Tasks()
-	// day4Tasks()
-	// day5Tasks()
-	// day6Tasks()
-	// day7Tasks()
-	// day8Tasks()
-	// day9Tasks()
-	// day10Tasks()
+	day1Tasks()
+	day2Tasks()
+	day3Tasks()
+	day4Tasks()
+	day5Tasks()
+	day6Tasks()
+	day7Tasks()
+	day8Tasks()
+	day9Tasks()
+	day10Tasks()
 	day11Tasks()
 }
 
