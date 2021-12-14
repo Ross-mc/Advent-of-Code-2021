@@ -7,6 +7,8 @@ import (
 	"github.com/ross-mc/Advent-of-Code-2021/day1"
 	"github.com/ross-mc/Advent-of-Code-2021/day10"
 	"github.com/ross-mc/Advent-of-Code-2021/day11"
+	"github.com/ross-mc/Advent-of-Code-2021/day12"
+	"github.com/ross-mc/Advent-of-Code-2021/day14"
 	"github.com/ross-mc/Advent-of-Code-2021/day2"
 	"github.com/ross-mc/Advent-of-Code-2021/day3"
 	"github.com/ross-mc/Advent-of-Code-2021/day4"
@@ -19,17 +21,19 @@ import (
 )
 
 func main() {
-	day1Tasks()
-	day2Tasks()
-	day3Tasks()
-	day4Tasks()
-	day5Tasks()
-	day6Tasks()
-	day7Tasks()
-	day8Tasks()
-	day9Tasks()
-	day10Tasks()
-	day11Tasks()
+	// day1Tasks()
+	// day2Tasks()
+	// day3Tasks()
+	// day4Tasks()
+	// day5Tasks()
+	// day6Tasks()
+	// day7Tasks()
+	// day8Tasks()
+	// day9Tasks()
+	// day10Tasks()
+	// day11Tasks()
+	// day12Tasks()
+	day14Tasks()
 }
 
 func day1Tasks() {
@@ -162,4 +166,28 @@ func day11Tasks() {
 	timeEnd := time.Now().UnixMilli()
 	difference := timeEnd - timeStart
 	fmt.Printf("day 11 took %v ms to run\n", difference)
+}
+
+func day12Tasks() {
+	timeStart := time.Now().UnixMilli()
+	day12Input := utils.ReadFileIntoStringSlice("./day12/input.txt")
+	d12t1 := day12.Task1(day12Input)
+	fmt.Printf("Day 12 Task 1: %v\n", d12t1)
+	// d12t2 := day12.Task2(day12Input)
+	// fmt.Printf("Day 12 Task 2: %v\n", d12t2)
+	timeEnd := time.Now().UnixMilli()
+	difference := timeEnd - timeStart
+	fmt.Printf("day 12 took %v ms to run\n", difference)
+}
+
+func day14Tasks() {
+	timeStart := time.Now().UnixMilli()
+	day14Input := utils.ReadFileIntoStringSlice("./day14/input.txt")
+	d14t1 := day14.Task1(day14Input)
+	fmt.Printf("Day 14 Task 1: %v\n", d14t1)
+	// d14t2 := day14.Task2(day14Input)
+	// fmt.Printf("Day 14 Task 2: %v\n", d14t2)
+	timeEnd := time.Now().UnixMilli()
+	difference := timeEnd - timeStart
+	fmt.Printf("day 14 took %v ms to run\n", difference)
 }
