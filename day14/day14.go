@@ -21,6 +21,8 @@ type Pair struct {
 	subtracted int
 }
 
+type CountMap map[string]int
+
 var last = ""
 
 func parseInput(input []string) {
@@ -50,6 +52,16 @@ func parseInput(input []string) {
 
 }
 
+func updateCounts() {
+	for k := range PAIRS {
+		pair := PAIRS[k]
+		pair.count = pair.count + pair.added - pair.subtracted
+		pair.added = 0
+		pair.subtracted = 0
+		PAIRS[k] = pair
+	}
+}
+
 func processStep() {
 	for key, value := range PAIRS {
 		if !(value.count == 0) {
@@ -68,20 +80,11 @@ func processStep() {
 			PAIRS[key] = orig
 		}
 	}
-	for k := range PAIRS {
-		pair := PAIRS[k]
-		pair.count = pair.count + pair.added - pair.subtracted
-		pair.added = 0
-		pair.subtracted = 0
-		PAIRS[k] = pair
-	}
+	updateCounts()
 }
 
-func getMinAndMaxDifference() int {
-
-	COUNT_MAP := make(map[string]int)
-	max := math.MinInt
-	min := math.MaxInt
+func countLeadingLetterOfEachPair() CountMap {
+	COUNT_MAP := make(CountMap)
 	for _, pair := range PAIRS {
 		split := strings.Split(pair.letters, "")
 		ltr1 := split[0]
@@ -93,8 +96,19 @@ func getMinAndMaxDifference() int {
 			COUNT_MAP[ltr1] = pair.count
 		}
 	}
-	COUNT_MAP[last]++
-	for _, v := range COUNT_MAP {
+	addLastLetterOfInitialString(&COUNT_MAP)
+	return COUNT_MAP
+}
+
+func addLastLetterOfInitialString(cm *CountMap) {
+	(*cm)[last]++
+}
+
+func findMaxAndMinValues(cm CountMap) (max int, min int) {
+	max = math.MinInt
+	min = math.MaxInt
+
+	for _, v := range cm {
 		if v > max {
 			max = v
 		}
@@ -103,6 +117,13 @@ func getMinAndMaxDifference() int {
 			min = v
 		}
 	}
+	return
+}
+
+func getMinAndMaxDifference() int {
+
+	COUNT_MAP := countLeadingLetterOfEachPair()
+	max, min := findMaxAndMinValues(COUNT_MAP)
 	return max - min
 }
 
