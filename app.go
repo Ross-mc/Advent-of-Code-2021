@@ -9,6 +9,7 @@ import (
 	"github.com/ross-mc/Advent-of-Code-2021/day11"
 	"github.com/ross-mc/Advent-of-Code-2021/day12"
 	"github.com/ross-mc/Advent-of-Code-2021/day14"
+	"github.com/ross-mc/Advent-of-Code-2021/day15"
 	"github.com/ross-mc/Advent-of-Code-2021/day2"
 	"github.com/ross-mc/Advent-of-Code-2021/day3"
 	"github.com/ross-mc/Advent-of-Code-2021/day4"
@@ -33,7 +34,8 @@ func main() {
 	// day10Tasks()
 	// day11Tasks()
 	// day12Tasks()
-	day14Tasks()
+	// day14Tasks()
+	day15Tasks()
 }
 
 func day1Tasks() {
@@ -189,4 +191,16 @@ func day14Tasks() {
 	timeEnd := time.Now().UnixMilli()
 	difference := timeEnd - timeStart
 	fmt.Printf("day 14 took %v ms to run\n", difference)
+}
+
+func day15Tasks() {
+	timeStart := time.Now().UnixMilli()
+	day15Input := utils.ReadFileIntoStringSlice("./day15/input.txt")
+	d15t1 := day15.Task1(day15Input)
+	fmt.Printf("Day 15 Task 1: %v\n", d15t1)
+	// d15t2 := day15.Task2(day15Input)
+	// fmt.Printf("Day 15 Task 2: %v\n", d15t2)
+	timeEnd := time.Now().UnixMilli()
+	difference := timeEnd - timeStart
+	fmt.Printf("day 15 took %v ms to run\n", difference)
 }
