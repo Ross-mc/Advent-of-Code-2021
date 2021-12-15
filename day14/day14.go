@@ -62,22 +62,31 @@ func updateCounts() {
 	}
 }
 
+func getTargetPairsToUpdate(pair string, count int) {
+	insertion := RULES[pair].insertion
+	split := strings.Split(pair, "")
+	for idx, ltr := range split {
+		pairStr := ltr + insertion
+		if idx == 1 {
+			pairStr = insertion + ltr
+		}
+		pairToUpdate := PAIRS[pairStr]
+		pairToUpdate.added += count
+		PAIRS[pairStr] = pairToUpdate
+	}
+}
+
+func updateOriginalPairToSubtract(pair string, count int) {
+	orig := PAIRS[pair]
+	orig.subtracted += count
+	PAIRS[pair] = orig
+}
+
 func processStep() {
 	for key, value := range PAIRS {
 		if !(value.count == 0) {
-			insertion := RULES[key].insertion
-			slice := strings.Split(key, "")
-			tgt1str := slice[0] + insertion
-			pair1 := PAIRS[tgt1str]
-			pair1.added += value.count
-			PAIRS[tgt1str] = pair1
-			tgt2str := insertion + slice[1]
-			pair2 := PAIRS[tgt2str]
-			pair2.added += value.count
-			PAIRS[tgt2str] = pair2
-			orig := PAIRS[key]
-			orig.subtracted += value.count
-			PAIRS[key] = orig
+			getTargetPairsToUpdate(key, value.count)
+			updateOriginalPairToSubtract(key, value.count)
 		}
 	}
 	updateCounts()
