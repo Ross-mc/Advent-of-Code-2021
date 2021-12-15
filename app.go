@@ -183,10 +183,9 @@ func day12Tasks() {
 func day14Tasks() {
 	timeStart := time.Now().UnixMilli()
 	day14Input := utils.ReadFileIntoStringSlice("./day14/input.txt")
-	d14t1 := day14.Task1(day14Input)
+	d14t1, d14t2 := day14.Task(day14Input)
 	fmt.Printf("Day 14 Task 1: %v\n", d14t1)
-	// d14t2 := day14.Task2(day14Input)
-	// fmt.Printf("Day 14 Task 2: %v\n", d14t2)
+	fmt.Printf("Day 14 Task 2: %v\n", d14t2)
 	timeEnd := time.Now().UnixMilli()
 	difference := timeEnd - timeStart
 	fmt.Printf("day 14 took %v ms to run\n", difference)
