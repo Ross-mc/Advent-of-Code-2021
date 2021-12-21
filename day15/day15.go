@@ -1,6 +1,7 @@
 package day15
 
 import (
+	"fmt"
 	"math"
 	"strconv"
 	"strings"
@@ -136,11 +137,109 @@ func djikstra(nodes Nodes) int {
 	}
 }
 
-func Task1(input []string) int {
-	nodes := parseInput(input)
-	return djikstra(nodes)
+// func Task1(input []string) int {
+// 	nodes := parseInput(input)
+// 	return djikstra(nodes)
+// }
+
+type Matrix struct {
+	x int
+	y int
 }
 
-func Task2() {
+type Matrices [][]Matrix
 
+func generateMatrices(bound int) Matrices {
+	mx := Matrices{}
+	for i := 0; i < bound; i++ {
+		tempM := []Matrix{}
+		for j := i; j >= 0; j-- {
+			m1 := Matrix{
+				x: j,
+				y: i,
+			}
+			tempM = append(tempM, m1)
+			if i != j {
+				m2 := Matrix{
+					x: i,
+					y: j,
+				}
+				tempM = append(tempM, m2)
+			}
+		}
+		mx = append(mx, tempM)
+	}
+	return mx
+}
+
+func parseInputIncreasedMatrix(input []string, matrices Matrices) Nodes {
+	nodes := Nodes{}
+	fmt.Println((len(input) * 5) - 1)
+	for x, line := range input {
+		//38438
+		slc := strings.Split(line, "")
+		for y, strNum := range slc {
+			num, _ := strconv.Atoi(strNum)
+			node := Node{
+				x:                   x,
+				y:                   y,
+				visited:             false,
+				difficultyFromStart: math.MaxInt,
+				difficulty:          num,
+			}
+			if x == 0 && y == 0 {
+				node.difficultyFromStart = 0
+				CURRENT_NODE = &node
+			} else {
+				nodes = append(nodes, &node)
+			}
+			// nodes = append(nodes, &node)
+			// 8 9 1 2 3
+			// 9 1 2 3 4
+			// 1 2 3 4 5
+			// 2 3 4 5 6
+			// 3 4 5 6 7
+			// make other nodes
+			for _, mx := range matrices {
+				for _, m := range mx {
+					rowLength := len(slc)
+					node := Node{
+						x:                   m.x + (x * rowLength),
+						y:                   m.y + (y * rowLength),
+						visited:             false,
+						difficultyFromStart: math.MaxInt,
+						difficulty:          num, //need to figure this out
+					}
+					nodes = append(nodes, &node)
+					if node.x == ((len(input)*5)-1) && node.y == ((len(input)*5)-1) {
+						fmt.Println("**********")
+						TARGET_NODE = &node
+					}
+				}
+			}
+		}
+	}
+	return nodes
+}
+
+// func findEndNode(nodes Nodes) {
+// 	temp := Nodes{}
+// 	for _, n := range nodes {
+// 		if n.y == 497 {
+// 			temp = append(temp, n)
+// 		}
+// 	}
+// 	fmt.Println(len(temp))
+// }
+
+func Task2(input []string) int {
+	mx := generateMatrices(5)
+	nodes := parseInputIncreasedMatrix(input, mx)
+	fmt.Println(mx)
+	for _, n := range nodes {
+		fmt.Println(n)
+	}
+	fmt.Println("<<<<>>>>>")
+	fmt.Println(TARGET_NODE)
+	return len(nodes)
 }
